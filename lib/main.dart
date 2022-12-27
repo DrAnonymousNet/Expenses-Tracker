@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         fontFamily: "Quicksand",
         textTheme: ThemeData.light().textTheme.copyWith(titleMedium: TextStyle(fontFamily: "OpenSans", fontSize: 18)),
-        appBarTheme:AppBarTheme(toolbarTextStyle:TextStyle(fontFamily: "OpenSans", fontWeight: FontWeight.bold)),
+        appBarTheme:AppBarTheme(toolbarTextStyle:TextStyle(fontFamily: "OpenSans", fontWeight: FontWeight.bold, fontSize: 20)),
       ),
       home: _MyHomePage(),
     );
@@ -30,8 +30,8 @@ class _MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State {
   List<Transaction> transactions = [
-    Transaction(id: 1, title: "Wears", amount: 45.98, date: DateTime.now()),
-    Transaction(id: 2, title: "Groceries", amount: 33.12, date: DateTime.now())
+    //Transaction(id: 1, title: "Wears", amount: 45.98, date: DateTime.now()),
+    //Transaction(id: 2, title: "Groceries", amount: 33.12, date: DateTime.now())
   ];
 
   final titleController = TextEditingController();

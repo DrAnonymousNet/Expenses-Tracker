@@ -11,7 +11,13 @@ class TransactionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         height: 420,
-        child: ListView.builder(
+        child: transactions.isEmpty ? Column(
+          children: [
+            Text("No transaction yet !", style: Theme.of(context).textTheme.titleMedium,),
+            SizedBox(height: 10,),
+            Container(height: 300, child: Image.asset("assets/images/waiting.png", fit: BoxFit.cover,)),
+          ],
+        ) :ListView.builder(
             itemCount: transactions.length,
             itemBuilder: (context, index) {
               print(context);
