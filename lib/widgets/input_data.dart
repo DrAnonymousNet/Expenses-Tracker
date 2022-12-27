@@ -7,7 +7,7 @@ class InputData extends StatelessWidget {
 
   InputData({this.titleController, this.amountController, this.createTxEvent});
 
-  void submitData() {
+  void submitData(context) {
     var enteredTitle = titleController.text.toString();
     var enteredAmount = double.parse(amountController.text);
     if (enteredTitle.isEmpty || enteredAmount <= 0) {
@@ -15,9 +15,9 @@ class InputData extends StatelessWidget {
     }
 
     createTxEvent(
-        title: enteredTitle,
-        amount: enteredAmount,
-        date: DateTime.now());
+        title: enteredTitle, amount: enteredAmount, date: DateTime.now());
+    Navigator.of(context).pop();
+
   }
 
   @override
@@ -32,7 +32,7 @@ class InputData extends StatelessWidget {
           child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
             TextField(
                 controller: titleController,
-                onSubmitted: (_) => submitData(),
+                onSubmitted: (_) => submitData(context),
                 decoration: InputDecoration(
                     labelText: "Title",
                     icon: Icon(Icons.abc),
@@ -40,14 +40,12 @@ class InputData extends StatelessWidget {
             TextField(
                 controller: amountController,
                 keyboardType: TextInputType.number,
-                onSubmitted: (_) => submitData(),
+                onSubmitted: (_) => submitData(context),
                 decoration: InputDecoration(
                     labelText: "Amount",
                     icon: Icon(Icons.money),
                     hintText: "The amount of the transaction")),
-            TextButton(
-                onPressed: submitData,
-                child: Text("Add Transaction"))
+            TextButton(onPressed:(() =>  submitData(context)), child: Text("Add Transaction"))
           ]),
         ),
       ),
