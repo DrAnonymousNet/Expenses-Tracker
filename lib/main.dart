@@ -1,3 +1,4 @@
+import 'widgets/chart.dart';
 import 'package:flutter/material.dart';
 import './models/transaction_list.dart';
 import 'widgets/transaction.dart';
@@ -11,10 +12,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Personal Expenses',
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+        primarySwatch: Colors.purple,
         fontFamily: "Quicksand",
-        textTheme: ThemeData.light().textTheme.copyWith(titleMedium: TextStyle(fontFamily: "OpenSans", fontSize: 18)),
-        appBarTheme:AppBarTheme(toolbarTextStyle:TextStyle(fontFamily: "OpenSans", fontWeight: FontWeight.bold, fontSize: 20)),
+        textTheme: ThemeData.light().textTheme.copyWith(
+            titleMedium: TextStyle(fontFamily: "OpenSans", fontSize: 18)),
+        appBarTheme: AppBarTheme(
+            toolbarTextStyle: TextStyle(
+                fontFamily: "OpenSans",
+                fontWeight: FontWeight.bold,
+                fontSize: 20)),
       ),
       home: _MyHomePage(),
     );
@@ -33,6 +39,13 @@ class _MyHomePageState extends State {
     //Transaction(id: 1, title: "Wears", amount: 45.98, date: DateTime.now()),
     //Transaction(id: 2, title: "Groceries", amount: 33.12, date: DateTime.now())
   ];
+
+  List<Transaction> get _getRecentTransactions {
+    return transactions.where((transaction) {
+      return transaction.date
+          .isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
 
   final titleController = TextEditingController();
   final amountController = TextEditingController();
@@ -62,7 +75,9 @@ class _MyHomePageState extends State {
       appBar: AppBar(
         title: Text('Personal Expenses'),
         actions: [
-          IconButton(icon: Icon(Icons.add), onPressed:(() => _addNewTransactionModal(context))),
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: (() => _addNewTransactionModal(context))),
         ],
       ),
       body: SingleChildScrollView(
@@ -70,19 +85,14 @@ class _MyHomePageState extends State {
             //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Container(
-                width: double.infinity,
-                child: Card(
-                  child: Text("Chart"),
-                  elevation: 5,
-                ),
-              ),
+
+              Chart(_getRecentTransactions),
               TransactionCard(transactions)
             ]),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed:() => _addNewTransactionModal(context),
+        onPressed: () => _addNewTransactionModal(context),
       ),
     );
   }
