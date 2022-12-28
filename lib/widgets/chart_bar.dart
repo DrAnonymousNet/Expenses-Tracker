@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class ChartBar extends StatelessWidget {
   final double amount;
@@ -14,7 +11,9 @@ class ChartBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text("${amount.toStringAsFixed(0)}"),
+        Container(
+          height: 20,
+          child: FittedBox(child: Text("\$${amount.toStringAsFixed(0)}"))),
         SizedBox(height: 4),
         Container(
           height: 60,
@@ -31,7 +30,9 @@ class ChartBar extends StatelessWidget {
               FractionallySizedBox(
                 heightFactor: spendingPctTotal,
                 child: Container(
-                  decoration: BoxDecoration(color: Theme.of(context).primaryColor,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Theme.of(context).primaryColor,
                 )),
               )
             ]),

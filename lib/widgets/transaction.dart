@@ -2,26 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/transaction_list.dart';
 
-class TransactionCard extends StatelessWidget {
+class TransactionCard extends StatefulWidget {
   final List<Transaction> transactions;
+
+  
 
   TransactionCard(this.transactions);
 
   @override
+  State<TransactionCard> createState() => _TransactionCardState();
+}
+
+class _TransactionCardState extends State<TransactionCard> {
+  void _deleteTransaction(String id){
+    widget.transactions.removeAt(index)
+  }
+  
+  @override
   Widget build(BuildContext context) {
     return Container(
         height: 420,
-        child: transactions.isEmpty ? Column(
+        child: widget.transactions.isEmpty ? Column(
           children: [
             Text("No transaction yet !", style: Theme.of(context).textTheme.titleMedium,),
             SizedBox(height: 10,),
             Container(height: 300, child: Image.asset("assets/images/waiting.png", fit: BoxFit.cover,)),
           ],
         ) :ListView.builder(
-            itemCount: transactions.length,
+            itemCount: widget.transactions.length,
             itemBuilder: (context, index) {
               print(context);
-              var item = transactions[index];
+              var item = widget.transactions[index];
               return Card(
                   child: Row(
                 children: <Widget>[
@@ -35,20 +46,30 @@ class TransactionCard extends StatelessWidget {
                       "\$${item.amount.toStringAsFixed(2)}",
                       style:Theme.of(context).textTheme.titleMedium),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        item.title,
-                        style: TextStyle(
-                            fontSize: 16.0, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        DateFormat.yMMMMEEEEd().format(item.date),
-                        style: TextStyle(color: Colors.grey),
-                      )
-                    ],
-                  )
+                  Flexible(
+                    fit: FlexFit.tight,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.title,
+                          style: TextStyle(
+                              fontSize: 16.0, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          DateFormat.yMMMMEEEEd().format(item.date),
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ),
+                  IconButton(
+                    color: Theme.of(context).errorColor,
+                    icon: Icon(Icons.delete),
+                    onPressed:(() {
+                        
+                        })
+                    )
                 ],
               ));
             }));

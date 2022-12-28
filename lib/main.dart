@@ -51,7 +51,7 @@ class _MyHomePageState extends State {
   final amountController = TextEditingController();
 
   void _createTransaction({String title, double amount, DateTime date}) {
-    var tx = Transaction(id: 3, title: title, amount: amount, date: date);
+    var tx = Transaction(id: DateTime.now().toString(), title: title, amount: amount, date: date);
     setState(() {
       this.transactions.add(tx);
     });
