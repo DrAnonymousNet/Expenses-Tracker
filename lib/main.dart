@@ -40,6 +40,12 @@ class _MyHomePageState extends State {
     //Transaction(id: 2, title: "Groceries", amount: 33.12, date: DateTime.now())
   ];
 
+  void _deleteTransaction(String id) {
+    setState(() {
+      transactions.removeWhere(((tx) => tx.id == id));
+    });
+  }
+
   List<Transaction> get _getRecentTransactions {
     return transactions.where((transaction) {
       return transaction.date
@@ -87,7 +93,7 @@ class _MyHomePageState extends State {
             children: <Widget>[
 
               Chart(_getRecentTransactions),
-              TransactionCard(transactions)
+              TransactionCard(transactions, _deleteTransaction)
             ]),
       ),
       floatingActionButton: FloatingActionButton(
